@@ -1,0 +1,46 @@
+package br.com.agendamento.configurações;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class Config {
+
+    @Bean
+    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http.authorizeHttpRequests(req -> {
+            req
+                    .requestMatchers("/logado").authenticated()
+                    .requestMatchers("/login", "/cadastro", "/css/**", "/js/**").permitAll()
+                    .anyRequest().authenticated();
+        }).formLogin(form -> {
+            form
+                    .loginPage("/login")
+                    .usernameParameter("email")
+                    .passwordParameter("senha")
+                    .defaultSuccessUrl("/logado", true)
+                    .permitAll();
+        }).logout(logout -> {
+            logout
+                    .invalidateHttpSession(true)
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login?logout");
+        }).build();
+    }
+
+    @Bean
+    protected PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    protected AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
+}
