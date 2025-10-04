@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.agendamento.model.Usuario;
-import br.com.agendamento.model.UsuarioDTO;
+import br.com.agendamento.model.usuario.CadastroUsuarioDTO;
+import br.com.agendamento.model.usuario.Usuario;
 import br.com.agendamento.service.UsuarioService;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +27,7 @@ public class PageController {
     }
 
     @PostMapping("/cadastro")
-    public String cadastrar(@ModelAttribute UsuarioDTO usuario) {
+    public String cadastrar(@ModelAttribute CadastroUsuarioDTO usuario) {
         try {
             service.cadastrarUsuario(usuario);
             return "redirect:/login";

@@ -1,4 +1,4 @@
-package br.com.agendamento.model;
+package br.com.agendamento.model.usuario;
 
 import java.util.Collection;
 import java.util.List;
@@ -7,10 +7,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import br.com.agendamento.model.evento.Evento;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,6 +34,9 @@ public class Usuario implements UserDetails{
     private String nome;
     private String senha;
     private String role;
+    @OneToMany(mappedBy = "usuarioId")
+    private List<Evento> eventos;
+    private boolean ativo;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -48,7 +53,7 @@ public class Usuario implements UserDetails{
         return email;
     }
 
-    public Usuario(UsuarioDTO usuariodto) {
+    public Usuario(CadastroUsuarioDTO usuariodto) {
         this.nome = usuariodto.nome();
         this.email = usuariodto.email();
         this.role = "ROLE_CLIENTE";

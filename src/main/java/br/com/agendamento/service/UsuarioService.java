@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.agendamento.model.Usuario;
-import br.com.agendamento.model.UsuarioDTO;
+import br.com.agendamento.model.usuario.CadastroUsuarioDTO;
+import br.com.agendamento.model.usuario.Usuario;
 import br.com.agendamento.repository.UsuarioRepository;
 
 @Service
@@ -26,7 +26,7 @@ public class UsuarioService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
     }
 
-    public void cadastrarUsuario(UsuarioDTO usuariodto) {
+    public void cadastrarUsuario(CadastroUsuarioDTO usuariodto) {
         //TODO Verificar se o email enviado já não está cadastrado
         Usuario usuario = new Usuario(usuariodto);
         usuario.setSenha(encoder.encode(usuariodto.senha()));
