@@ -16,7 +16,6 @@ public class Config {
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(req -> {
             req
-                    .requestMatchers("/logado").authenticated()
                     .requestMatchers("/login", "/cadastro", "/css/**", "/js/**").permitAll()
                     .anyRequest().authenticated();
         }).formLogin(form -> {

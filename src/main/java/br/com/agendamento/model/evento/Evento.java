@@ -1,5 +1,7 @@
 package br.com.agendamento.model.evento;
 
+import java.time.LocalDateTime;
+
 import br.com.agendamento.model.usuario.Usuario;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -25,6 +27,6 @@ public class Evento {
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuarioId;
-    private String inicio;
+    private LocalDateTime inicio;
     private boolean ativo;
 }

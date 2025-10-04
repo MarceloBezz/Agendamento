@@ -1,5 +1,6 @@
 package br.com.agendamento.model.usuario;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -57,6 +58,7 @@ public class Usuario implements UserDetails{
         this.nome = usuariodto.nome();
         this.email = usuariodto.email();
         this.role = "ROLE_CLIENTE";
+        this.eventos = new ArrayList<>();
     }
     
 }
