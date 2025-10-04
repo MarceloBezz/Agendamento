@@ -1,0 +1,116 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/*FONTES*/
+
+
+
+.freeman{
+  font-family: "Freeman", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.inter{
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: weight;
+  font-style: normal;
+}
+
+
+body{
+    background-color: #000000;
+}
+
+main>h2{
+    color: red;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+main>h1{
+    color: white;
+    text-align: center;
+    font-size: 4rem;
+    margin-bottom: 50px;
+}
+
+.flex{
+    display: flex;
+    justify-content: center;
+}
+
+.agendar{
+    width: 435px;
+    height: 100px;
+    background-color: red;
+    border-radius: 15px;
+}
+
+a{
+    text-decoration: none;
+    color: aliceblue;
+}
+
+.agendar>p{
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 30px;
+}
+
+article{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.foto1, .foto2, .foto3 {
+    width: 367px;
+    height: 446px;
+    background-color: aliceblue;
+    overflow: hidden; 
+    border-radius: 10px; 
+}
+
+
+.foto1 > img,
+.foto2 > img,
+.foto3 > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    transition: transform 0.3s ease; 
+}
+
+
+.foto1:hover > img,
+.foto2:hover > img,
+.foto3:hover > img {
+    transform: scale(1.1); 
+}
+
+
+iframe{
+    width: 1265px;
+    height: 526px;
+    margin-left: 70px;
+    margin-bottom: 20px;
+    
+}
+
+footer{
+    background-color: #1F1E1E;
+    width: 100%;
+    height: 180px;
+    
+}
+
+footer>p{
+    color: aliceblue;
+    padding-top: 20px;
+    margin-left: 20px;
+    font-size: 1.5rem;
+}
