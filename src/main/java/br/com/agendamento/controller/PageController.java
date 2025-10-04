@@ -75,4 +75,19 @@ public class PageController {
         return "criar-evento";
     }
 
+    @GetMapping("/")
+    public String index() {
+        return "redirect:/home";
+    }
+
+    @GetMapping("/home")
+    public String home() {
+        return "index";
+    }
+
+    @GetMapping("/agendamento")
+    public String agendamento() {
+        return "agendamento";
+    }
+
 }
