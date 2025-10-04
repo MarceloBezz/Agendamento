@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Logado</title>
 </head>
+
 <body>
-<h2>Olá, <span th:text="${usuario.nome}">usuário</span>!</h2>
-<form th:action="@{/logout}" method="post">
-    <button type="submit">Sair</button>
-</form>
+    <div th:if="${mensagemErro}" style="color: red;">
+        <p th:text="${mensagemErro}"></p>
+    </div>
+    <h2>Olá, <span th:text="${usuario.nome}">usuário</span>!</h2>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Sair</button>
+    </form>
 </body>
+
+<a th:href="@{/criar-evento}">Fazer agendamento</a>
 </html>

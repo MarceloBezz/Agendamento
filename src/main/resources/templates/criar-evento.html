@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Informe os dados do seu agendamento</h1>
+    <form th:action="@{/evento/criar}" method="post">
+        <input type="text" name="inicio">
+        <input type="text" name="dia">
+        <input type="text" name="mes">
+        <input type="text" name="ano">
+
+        <button type="submit">Agendar</button>
+    </form>
+</body>
+</html>

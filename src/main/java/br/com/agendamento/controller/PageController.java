@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.agendamento.model.evento.Evento;
 import br.com.agendamento.model.usuario.CadastroUsuarioDTO;
 import br.com.agendamento.model.usuario.Usuario;
 import br.com.agendamento.service.UsuarioService;
@@ -49,9 +50,29 @@ public class PageController {
     }
 
     @GetMapping("/logado")
-    public String logado(Model model, @AuthenticationPrincipal Usuario usuario) {
+    public String logado(Model model, @AuthenticationPrincipal Usuario usuario,
+            @RequestParam(value = "erro-criacao-evento", required = false) String mensagemErro) {
         model.addAttribute("usuario", usuario);
+        if (mensagemErro != null) {
+            model.addAttribute("mensagemErro", "Erro ao criar evento!");
+        }
         return "logado";
+    }
+
+    @GetMapping("/evento-criado")
+    public String eventoCriado(@AuthenticationPrincipal Usuario usuario, Model model,
+            @ModelAttribute Evento evento) {
+        model.addAttribute("usuarioNome", usuario.getNome());
+        var inicio = evento.getInicio();
+        String dataFormatada = ("%s/%s/%s - %sh%s".formatted(inicio.getDayOfMonth(), inicio.getMonth(), 
+        inicio.getYear(), inicio.getHour(), inicio.getMinute()));
+        model.addAttribute("inicio", dataFormatada);
+        return "evento-criado";
+    }
+
+    @GetMapping("/criar-evento")
+    public String criarEvento() {
+        return "criar-evento";
     }
 
 }
