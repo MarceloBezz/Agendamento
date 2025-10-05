@@ -33,4 +33,5 @@ build/
 .vscode/
 /tokens/
 /src/main/resources/credentials.json
+/src/main/resources/service-credentials.json
 .env

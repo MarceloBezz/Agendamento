@@ -1,5 +1,7 @@
 package br.com.agendamento.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -8,33 +10,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.agendamento.model.evento.DadosEventoDTO;
 import br.com.agendamento.model.evento.Evento;
-import br.com.agendamento.model.usuario.CadastroUsuarioDTO;
 import br.com.agendamento.model.usuario.Usuario;
-import br.com.agendamento.service.UsuarioService;
-
-import org.springframework.web.bind.annotation.PostMapping;
+import br.com.agendamento.service.EventoService;
 
 @Controller
 public class PageController {
 
     @Autowired
-    private UsuarioService service;
+    private EventoService eventoService;
 
     @GetMapping("/cadastro")
     public String cadastro(Model model) {
         model.addAttribute("usuario", new Usuario());
         return "cadastro";
-    }
-
-    @PostMapping("/cadastro")
-    public String cadastrar(@ModelAttribute CadastroUsuarioDTO usuario) {
-        try {
-            service.cadastrarUsuario(usuario);
-            return "redirect:/login";
-        } catch (Exception e) {
-            return "redirect:/cadastro?erro";
-        }
     }
 
     @GetMapping("/login")
@@ -63,10 +53,10 @@ public class PageController {
     public String eventoCriado(@AuthenticationPrincipal Usuario usuario, Model model,
             @ModelAttribute Evento evento) {
         model.addAttribute("usuarioNome", usuario.getNome());
-        var inicio = evento.getInicio();
-        String dataFormatada = ("%s/%s/%s - %sh%s".formatted(inicio.getDayOfMonth(), inicio.getMonth(), 
-        inicio.getYear(), inicio.getHour(), inicio.getMinute()));
-        model.addAttribute("inicio", dataFormatada);
+        // var inicio = evento.getInicio();
+        // String dataFormatada = ("%s/%s/%s - %sh%s".formatted(inicio.getDayOfMonth(), inicio.getMonth(),
+        //         inicio.getYear(), inicio.getHour(), inicio.getMinute()));
+        model.addAttribute("inicio", evento.getInicio());
         return "evento-criado";
     }
 
@@ -88,6 +78,14 @@ public class PageController {
     @GetMapping("/agendamento")
     public String agendamento() {
         return "agendamento";
+    }
+
+    @GetMapping("/meus-agendamentos")
+    public String verAgendamentos(@AuthenticationPrincipal Usuario usuario,
+             Model model) {
+        List<DadosEventoDTO> eventos = eventoService.listarEventosUsuario(usuario);
+        model.addAttribute("eventos", eventos);
+        return "meus-agendamentos";
     }
 
 }

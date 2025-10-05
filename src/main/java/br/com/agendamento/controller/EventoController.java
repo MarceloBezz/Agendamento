@@ -34,5 +34,4 @@ public class EventoController {
             return "redirect:/logado?erro-criacao-evento";
         }
     }
-
 }
