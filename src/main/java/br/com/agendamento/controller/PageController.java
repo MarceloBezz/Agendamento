@@ -22,7 +22,11 @@ public class PageController {
     private EventoService eventoService;
 
     @GetMapping("/cadastro")
-    public String cadastro(Model model) {
+    public String cadastro(Model model, @AuthenticationPrincipal Usuario usuario) {
+        if (usuario != null) {
+            return "redirect:/logado";
+        }
+
         model.addAttribute("usuario", new Usuario());
         return "cadastro";
     }
@@ -30,7 +34,12 @@ public class PageController {
     @GetMapping("/login")
     public String login(Model model,
             @RequestParam(value = "error", required = false) String mensagemErro,
-            @RequestParam(value = "logout", required = false) String mensagemLogout) {
+            @RequestParam(value = "logout", required = false) String mensagemLogout,
+            @AuthenticationPrincipal Usuario usuario) {
+        if (usuario != null) {
+            return "redirect:/logado";
+        }
+
         if (mensagemErro != null) {
             model.addAttribute("mensagemErro", "Senha incorreta!");
         } else if (mensagemLogout != null) {
@@ -78,7 +87,7 @@ public class PageController {
     }
 
     @GetMapping("/meus-agendamentos")
-    public String verAgendamentos(@AuthenticationPrincipal Usuario usuario, 
+    public String verAgendamentos(@AuthenticationPrincipal Usuario usuario,
             Model model,
             @RequestParam(value = "erro", required = false) String mensagemErro,
             @RequestParam(value = "cancelado", required = false) String mensagemCancelado) {
@@ -104,5 +113,5 @@ public class PageController {
     public String acessoNegado() {
         return "acesso-negado";
     }
-    
+
 }

@@ -22,6 +22,7 @@ public class Config {
             req
                     .requestMatchers("/login", "/cadastro", "/css/**", "/js/**", "/Img/**", "/home", "/", "/acesso-negado").permitAll()
                     .requestMatchers("/admin").hasRole("ADMIN")
+                    .requestMatchers("/login", "/cadastro").anonymous()
                     .anyRequest().authenticated();
         }).formLogin(form -> {
             form

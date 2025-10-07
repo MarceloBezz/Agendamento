@@ -8,12 +8,15 @@ import br.com.agendamento.service.EventoService;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -37,13 +40,14 @@ public class EventoController {
         }
     }
 
-    @PostMapping("/cancelar/{id}")
-    public String deletarEvento(@AuthenticationPrincipal Usuario usuario, @PathVariable String id) {
+    @DeleteMapping("/cancelar/{id}")
+    @ResponseBody
+    public ResponseEntity<String> deletarEvento(@AuthenticationPrincipal Usuario usuario, @PathVariable String id) {
         try {
             service.deletarEvento(usuario, id);
-            return "redirect:/meus-agendamentos?cancelado";
+            return ResponseEntity.ok().body("Evento cancelado com sucesso!");
         } catch (Exception e) {
-            return "redirect:/meus-agendamentos?erro";
+            return ResponseEntity.badRequest().body("Erro ao cancelar evento!");
         }
     }
 }
