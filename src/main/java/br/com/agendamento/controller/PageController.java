@@ -94,4 +94,15 @@ public class PageController {
         return "meus-agendamentos";
     }
 
+    @GetMapping("/admin")
+    public String admin(@AuthenticationPrincipal Usuario usuario, Model model) {
+        model.addAttribute("usuario", usuario);
+        return "admin";
+    }
+
+    @GetMapping("/acesso-negado")
+    public String acessoNegado() {
+        return "acesso-negado";
+    }
+    
 }
