@@ -7,7 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.agendamento.model.evento.DadosEventoDTO;
@@ -58,12 +58,17 @@ public class PageController {
         return "logado";
     }
 
-    @GetMapping("/evento-criado")
+    @GetMapping("/evento-criado/{idEvento}")
     public String eventoCriado(@AuthenticationPrincipal Usuario usuario, Model model,
-            @ModelAttribute Evento evento) {
-        model.addAttribute("usuarioNome", usuario.getNome());
-        model.addAttribute("inicio", evento.getInicio());
-        return "evento-criado";
+            @PathVariable String idEvento) throws Exception {
+        try {
+            Evento evento = eventoService.buscarPorId(idEvento, usuario);
+            model.addAttribute("usuarioNome", usuario.getNome());
+            model.addAttribute("inicio", evento.getInicio());
+            return "evento-criado";
+        } catch (Exception e) {
+            return "redirect:/logado";
+        }
     }
 
     @GetMapping("/criar-evento")

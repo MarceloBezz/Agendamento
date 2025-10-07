@@ -32,8 +32,8 @@ public class EventoController {
             @AuthenticationPrincipal Usuario usuario, RedirectAttributes redirectAttributes) throws GeneralSecurityException, IOException {
         try {
             Evento evento = service.cadastrarEvento(dto, usuario);
-            redirectAttributes.addFlashAttribute("evento", evento);
-            return "redirect:/evento-criado";
+            // redirectAttributes.addFlashAttribute("evento", evento);
+            return "redirect:/evento-criado/" + evento.getId();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return "redirect:/logado?erro-criacao-evento";

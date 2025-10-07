@@ -85,4 +85,13 @@ public class CalendarAPIService {
 		// System.out.printf("Evento criado: %s\n", event.getHtmlLink());
 		return event.getId();
 	}
+
+	public void excluirEvento(String idEvento) throws GeneralSecurityException, IOException {
+		final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+		Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, pegarCredenciais(HTTP_TRANSPORT, CREDENTIALS_FILE_PATH))
+				.setApplicationName(APPLICATION_NAME)
+				.build();
+
+		service.events().delete(CALENDAR_ID, idEvento).execute();
+	}
 }

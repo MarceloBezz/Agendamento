@@ -1,6 +1,7 @@
 package br.com.agendamento.service;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.security.GeneralSecurityException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -50,6 +51,19 @@ public class EventoService {
         }
 
         evento.setAtivo(false);
+        calendarioService.excluirEvento(id);
+    }
+
+    public Evento buscarPorId(String idEvento, Usuario usuario) throws Exception {
+         Evento evento = repository.findById(idEvento)
+                .orElseThrow(() -> new Exception("Evento não encontrado!"));
+        List<Evento> usuarioEventos = repository.findByUsuarioId(usuario);
+
+        if (!usuarioEventos.contains(evento)) {
+            throw new AccessDeniedException("Você não tem permissão para acessar este evento!");
+        }
+
+        return evento;
     }
 
 }

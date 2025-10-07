@@ -16,6 +16,7 @@
     <div th:if="${mensagemSucesso}" style="color: rgb(4, 222, 4);">
         <p th:text="${mensagemSucesso}"></p>
     </div>
+    <div th:if="${not #lists.isEmpty(eventos)}">
     <table class="tabela-eventos">
         <thead>
             <tr>
@@ -40,6 +41,12 @@
             </tr>
         </tbody>
     </table>
+    </div>
+    <div th:unless="${not #lists.isEmpty(eventos)}">
+    <h3>Poxa, você não tem nenhum evento agendado...</h3>
+    <span>Que tal <a th:href="@{/criar-evento}">agendar agora</a>?</span>
+    </div>
+
     <script th:src="@{/js/meusAgendamentos.js}"></script>
 </body>
 
