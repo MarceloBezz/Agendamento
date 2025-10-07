@@ -13,6 +13,7 @@ import br.com.agendamento.model.evento.DadosEventoDTO;
 import br.com.agendamento.model.evento.Evento;
 import br.com.agendamento.model.usuario.Usuario;
 import br.com.agendamento.repository.EventoRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class EventoService {
@@ -32,10 +33,23 @@ public class EventoService {
     }
 
     public List<DadosEventoDTO> listarEventosUsuario(Usuario usuario) {
-        return repository.findByUsuarioIdAndInicioAfterOrderByInicioAsc(usuario, LocalDateTime.now())
-        .stream()
-        .map(DadosEventoDTO::new)
-        .toList();
+        return repository.findByUsuarioIdAndInicioAfterAndAtivoTrueOrderByInicioAsc(usuario, LocalDateTime.now())
+                .stream()
+                .map(DadosEventoDTO::new)
+                .toList();
+    }
+
+    @Transactional
+    public void deletarEvento(Usuario usuario, String id) throws Exception {
+        Evento evento = repository.findById(id)
+                .orElseThrow(() -> new Exception("Evento não encontrado!"));
+        List<Evento> usuarioEventos = repository.findByUsuarioId(usuario);
+
+        if (!usuarioEventos.contains(evento)) {
+            throw new Exception("Você não tem permissão para alterar este evento!");
+        }
+
+        evento.setAtivo(false);
     }
 
 }

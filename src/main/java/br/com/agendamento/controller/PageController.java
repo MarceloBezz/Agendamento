@@ -53,9 +53,6 @@ public class PageController {
     public String eventoCriado(@AuthenticationPrincipal Usuario usuario, Model model,
             @ModelAttribute Evento evento) {
         model.addAttribute("usuarioNome", usuario.getNome());
-        // var inicio = evento.getInicio();
-        // String dataFormatada = ("%s/%s/%s - %sh%s".formatted(inicio.getDayOfMonth(), inicio.getMonth(),
-        //         inicio.getYear(), inicio.getHour(), inicio.getMinute()));
         model.addAttribute("inicio", evento.getInicio());
         return "evento-criado";
     }
@@ -81,10 +78,19 @@ public class PageController {
     }
 
     @GetMapping("/meus-agendamentos")
-    public String verAgendamentos(@AuthenticationPrincipal Usuario usuario,
-             Model model) {
+    public String verAgendamentos(@AuthenticationPrincipal Usuario usuario, 
+            Model model,
+            @RequestParam(value = "erro", required = false) String mensagemErro,
+            @RequestParam(value = "cancelado", required = false) String mensagemCancelado) {
         List<DadosEventoDTO> eventos = eventoService.listarEventosUsuario(usuario);
         model.addAttribute("eventos", eventos);
+
+        if (mensagemErro != null) {
+            model.addAttribute("mensagemErro", "Erro ao cancelar evento!");
+        }
+        if (mensagemCancelado != null) {
+            model.addAttribute("mensagemSucesso", "Evento cancelado com sucesso!");
+        }
         return "meus-agendamentos";
     }
 

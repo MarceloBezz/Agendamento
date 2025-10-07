@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 @Controller
 @RequestMapping("/evento")
@@ -32,6 +34,16 @@ public class EventoController {
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return "redirect:/logado?erro-criacao-evento";
+        }
+    }
+
+    @PostMapping("/cancelar/{id}")
+    public String deletarEvento(@AuthenticationPrincipal Usuario usuario, @PathVariable String id) {
+        try {
+            service.deletarEvento(usuario, id);
+            return "redirect:/meus-agendamentos?cancelado";
+        } catch (Exception e) {
+            return "redirect:/meus-agendamentos?erro";
         }
     }
 }

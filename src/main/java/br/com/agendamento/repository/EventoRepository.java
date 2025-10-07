@@ -11,5 +11,7 @@ import br.com.agendamento.model.usuario.Usuario;
 
 @Repository
 public interface EventoRepository extends JpaRepository<Evento, String>{
-    List<Evento> findByUsuarioIdAndInicioAfterOrderByInicioAsc(Usuario usuario, LocalDateTime agora);
+    List<Evento> findByUsuarioIdAndInicioAfterAndAtivoTrueOrderByInicioAsc(Usuario usuario, LocalDateTime agora);
+
+    List<Evento> findByUsuarioId(Usuario usuario);
 }
