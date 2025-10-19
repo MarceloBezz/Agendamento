@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Seu evento foi criado, <span th:text="${usuarioNome}"></span>!</h1>
-    <p>Data do agendamento: <span th:text="${inicio}"></span></p>
+    <p>Data do agendamento: <span th:text="${#temporals.format(inicio, 'dd/MM/yyyy HH:mm')}"></span></p>
+    <p><a th:href="@{/meus-agendamentos}">Ver todos os meus agendamentos</a></p>
 </body>
 </html>

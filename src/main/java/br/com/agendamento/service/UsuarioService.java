@@ -26,11 +26,12 @@ public class UsuarioService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
     }
 
-    public void cadastrarUsuario(CadastroUsuarioDTO usuariodto) {
-        //TODO Verificar se o email enviado já não está cadastrado
+    public void cadastrarUsuario(CadastroUsuarioDTO usuariodto) throws Exception {
+        if (repository.existsByEmailIgnoreCase(usuariodto.email())) {
+            throw new Exception("Usuário já cadastrado!");
+        }
         Usuario usuario = new Usuario(usuariodto);
         usuario.setSenha(encoder.encode(usuariodto.senha()));
         repository.save(usuario);
     }
-
 }

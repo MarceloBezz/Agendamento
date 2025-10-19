@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <title>Logado</title>
@@ -13,7 +14,12 @@
     <form th:action="@{/logout}" method="post">
         <button type="submit">Sair</button>
     </form>
+    <a th:href="@{/criar-evento}">Fazer agendamento</a>
+    <a th:href="@{/meus-agendamentos}">Ver meus agendamentos</a>
+    
+    <div sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/admin}">Tela de admin</a>
+    </div>
 </body>
 
-<a th:href="@{/criar-evento}">Fazer agendamento</a>
 </html>
