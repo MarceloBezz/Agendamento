@@ -114,3 +114,62 @@ footer>p{
     margin-left: 20px;
     font-size: 1.5rem;
 }
+
+
+/*Agendamento/Login*/
+
+header{
+    text-align: center;
+}
+
+header>.logo{
+    width: 274px;
+    height: 228px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+header>.logo2{
+    width: 400px;
+    height: 400px;
+    margin-top: 30px;
+}
+
+label>p{
+    color: red;
+    margin-left: 20px;
+    size: 1.2rem;
+}
+
+.centralizarbotao{
+    display: flex;
+    justify-content: center;
+}
+
+.centralizarbotao>a{
+    width: 150px;
+    height: 50px;
+    margin-top: 20px;
+    font-size: 1.5rem;
+}
+
+/*Area logada*/
+
+.botoes{
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+#agendamento{
+    padding-right: 20px;
+}
+
+h4{
+    color: red;
+}
+
+
+.teste1{
+    width: 300px;
+}

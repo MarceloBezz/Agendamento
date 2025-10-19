@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{css/style.css}">
     <title>Login</title>
 </head>
+
 <body>
-<h2>Login</h2>
-
-<div th:if="${mensagemErro}" style="color: red;">
-    <p th:text="${mensagemErro}"></p>
-</div>
-
-<div th:if="${mensagemLogout}" style="color: yellowgreen;">
-    <p th:text="${mensagemLogout}"></p>
-</div>
-
-<form th:action="@{/login}" method="post">
-    <div>
-        <label>Email:</label>
-        <input type="text" name="email" />
-    </div>
-    <div>
-        <label>Senha:</label>
-        <input type="password" name="senha" />
-    </div>
-    <div>
-        <button type="submit">Entrar</button>
-    </div>
-</form>
-<p>Não tem conta? <a th:href="@{/cadastro}">Cadastre-se</a></p>
+    <header>
+        <img class="logo" th:src="@{Img/barbearia3.png}" alt="HEADER">
+    </header>
+    <main>
+        <h2 class="inter">Faça Seu Login</h2>
+        <!---->
+        <form th:action="@{/login}" method="post">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">
+                    <p class="inter">Email</p>
+                </label>
+                <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="Email">
+            </div>
+            <div class="mb-3">
+                <label for="inputPassword5" class="form-label">
+                    <p class="inter">Senha</p>
+                </label>
+                <input name="senha" type="password" id="inputPassword5" class="form-control"
+                    aria-describedby="passwordHelpBlock">
+            </div>
+            <div class="centralizarbotao">
+                <button class="btn btn-success" type="submit">Login</button>
+        </form>
+    </main>
 </body>
+
 </html>
