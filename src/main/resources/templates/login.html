@@ -34,6 +34,17 @@
             <div class="centralizarbotao">
                 <button class="btn btn-success" type="submit">Login</button>
         </form>
+        <div th:if="${mensagemErro}" >
+    <div class="alert alert-danger" role="alert" th:text="${mensagemErro}"></div>
+  
+</div>
+
+</div>
+
+<div th:if="${mensagemLogout}" style="color: yellowgreen;">
+    <p th:text="${mensagemLogout}"></p>
+</div>
+
     </main>
 </body>
 
