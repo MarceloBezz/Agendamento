@@ -7,9 +7,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.agendamento.model.evento.CadastrarEventoDTO;
 import br.com.agendamento.model.evento.DadosEventoDTO;
 import br.com.agendamento.model.evento.Evento;
 import br.com.agendamento.model.usuario.Usuario;
@@ -24,7 +26,7 @@ public class PageController {
     @GetMapping("/cadastro")
     public String cadastro(Model model, @AuthenticationPrincipal Usuario usuario) {
         if (usuario != null) {
-            return "redirect:/logado";
+            return "redirect:/meus-dados";
         }
 
         model.addAttribute("usuario", new Usuario());
@@ -37,7 +39,7 @@ public class PageController {
             @RequestParam(value = "logout", required = false) String mensagemLogout,
             @AuthenticationPrincipal Usuario usuario) {
         if (usuario != null) {
-            return "redirect:/logado";
+            return "redirect:/meus-dados";
         }
 
         if (mensagemErro != null) {
@@ -48,14 +50,14 @@ public class PageController {
         return "login";
     }
 
-    @GetMapping("/logado")
-    public String logado(Model model, @AuthenticationPrincipal Usuario usuario,
+    @GetMapping("/meus-dados")
+    public String meusDados(Model model, @AuthenticationPrincipal Usuario usuario,
             @RequestParam(value = "erro-criacao-evento", required = false) String mensagemErro) {
         model.addAttribute("usuario", usuario);
         if (mensagemErro != null) {
             model.addAttribute("mensagemErro", "Erro ao criar evento!");
         }
-        return "logado";
+        return "meus-dados";
     }
 
     @GetMapping("/evento-criado/{idEvento}")
@@ -67,7 +69,7 @@ public class PageController {
             model.addAttribute("inicio", evento.getInicio());
             return "evento-criado";
         } catch (Exception e) {
-            return "redirect:/logado";
+            return "redirect:/meus-dados";
         }
     }
 
@@ -117,6 +119,20 @@ public class PageController {
     @GetMapping("/acesso-negado")
     public String acessoNegado() {
         return "acesso-negado";
+    }
+
+    @GetMapping("/confirmar-evento")
+    public String confirmarEvento(@ModelAttribute("evento") CadastrarEventoDTO dto, Model model) {
+        if (dto == null)
+            return "meus-dados";
+
+        model.addAttribute("evento", dto);
+        return "confirmar-evento";
+    }
+
+    @GetMapping("/confirmado")
+    public String confirmado() {
+        return "confirmado";
     }
 
 }

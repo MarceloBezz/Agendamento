@@ -1,7 +1,6 @@
 package br.com.agendamento.controller;
 
 import br.com.agendamento.model.evento.CadastrarEventoDTO;
-import br.com.agendamento.model.evento.Evento;
 import br.com.agendamento.model.usuario.Usuario;
 import br.com.agendamento.service.EventoService;
 
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 @Controller
 @RequestMapping("/evento")
 public class EventoController {
@@ -27,16 +25,28 @@ public class EventoController {
     @Autowired
     private EventoService service;
 
-    @PostMapping("/criar")
-    public String criarEvento(@ModelAttribute CadastrarEventoDTO dto,
-            @AuthenticationPrincipal Usuario usuario, RedirectAttributes redirectAttributes) throws GeneralSecurityException, IOException {
+    @PostMapping("/confirmar")
+    public String confirmarEvento(@ModelAttribute CadastrarEventoDTO dto,
+            RedirectAttributes redirectAttributes) throws GeneralSecurityException, IOException {
         try {
-            Evento evento = service.cadastrarEvento(dto, usuario);
-            // redirectAttributes.addFlashAttribute("evento", evento);
-            return "redirect:/evento-criado/" + evento.getId();
+            redirectAttributes.addFlashAttribute("evento", dto);
+            return "redirect:/confirmar-evento";
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return "redirect:/logado?erro-criacao-evento";
+            return "redirect:/meus-dados?erro-criacao-evento";
+        }
+    }
+
+    @PostMapping("/criar")
+    public String criarEvento(@ModelAttribute CadastrarEventoDTO evento,
+            @AuthenticationPrincipal Usuario usuario)
+            throws GeneralSecurityException, IOException {
+        try {
+            service.cadastrarEvento(evento, usuario);
+            return "redirect:/confirmado";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return "redirect:/meus-dados?erro-criacao-evento";
         }
     }
 

@@ -29,7 +29,7 @@ public class Config {
                     .loginPage("/login")
                     .usernameParameter("email")
                     .passwordParameter("senha")
-                    .defaultSuccessUrl("/logado", true)
+                    .defaultSuccessUrl("/meus-dados", true)
                     .permitAll();
         }).logout(logout -> {
             logout

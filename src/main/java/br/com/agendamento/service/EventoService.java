@@ -29,7 +29,7 @@ public class EventoService {
             throws GeneralSecurityException, IOException {
         var data = LocalDateTime.parse("%s-%s-%sT%s".formatted(dto.ano(), dto.mes(), dto.dia(), dto.inicio()));
         var id = calendarioService.cadastrarEvento(data, usuario.getNome());
-        Evento eventoBD = new Evento(id, usuario, data, true);
+        Evento eventoBD = new Evento(id, usuario, data, true, dto.atendente(), dto.servico());
         return repository.save(eventoBD);
     }
 

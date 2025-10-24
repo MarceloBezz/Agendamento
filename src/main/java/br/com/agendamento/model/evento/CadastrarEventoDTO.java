@@ -4,7 +4,9 @@ public record CadastrarEventoDTO(
     String inicio,
     String dia,
     String mes,
-    String ano
+    String ano,
+    String atendente,
+    String servico
 ) {
     
 }
