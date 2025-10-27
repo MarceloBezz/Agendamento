@@ -6,6 +6,10 @@ import br.com.agendamento.service.EventoService;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,6 +21,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("/evento")
@@ -36,6 +43,14 @@ public class EventoController {
             return "redirect:/meus-dados?erro-criacao-evento";
         }
     }
+
+    @GetMapping("/listar")
+    @ResponseBody
+    public List<LocalTime> listarEventos(@RequestParam LocalDate data) {
+        var eventos = service.listarPorData(data);
+        return eventos;
+    }
+    
 
     @PostMapping("/criar")
     public String criarEvento(@ModelAttribute CadastrarEventoDTO evento,

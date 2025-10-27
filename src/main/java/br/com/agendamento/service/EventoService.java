@@ -3,7 +3,9 @@ package br.com.agendamento.service;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.security.GeneralSecurityException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +29,9 @@ public class EventoService {
 
     public Evento cadastrarEvento(CadastrarEventoDTO dto, Usuario usuario)
             throws GeneralSecurityException, IOException {
-        var data = LocalDateTime.parse("%s-%s-%sT%s".formatted(dto.ano(), dto.mes(), dto.dia(), dto.inicio()));
-        var id = calendarioService.cadastrarEvento(data, usuario.getNome());
-        Evento eventoBD = new Evento(id, usuario, data, true, dto.atendente(), dto.servico());
+        // var data = LocalDateTime.parse("%s-%s-%sT%s".formatted(dto.ano(), dto.mes(), dto.dia(), dto.inicio()));
+        var id = calendarioService.cadastrarEvento(dto.inicio(), usuario.getNome());
+        Evento eventoBD = new Evento(id, usuario, dto.inicio(), true, dto.atendente(), dto.servico());
         return repository.save(eventoBD);
     }
 
@@ -55,7 +57,7 @@ public class EventoService {
     }
 
     public Evento buscarPorId(String idEvento, Usuario usuario) throws Exception {
-         Evento evento = repository.findById(idEvento)
+        Evento evento = repository.findById(idEvento)
                 .orElseThrow(() -> new Exception("Evento não encontrado!"));
         List<Evento> usuarioEventos = repository.findByUsuarioId(usuario);
 
@@ -64,6 +66,15 @@ public class EventoService {
         }
 
         return evento;
+    }
+
+    public List<LocalTime> listarPorData(LocalDate data) {
+        return repository.findByInicioBetween(data.atStartOfDay(), data.plusDays(1)
+                .atStartOfDay())
+                .stream()
+                // .map(DadosEventoDTO::new)
+                .map(x -> x.getInicio().toLocalTime())
+                .toList();
     }
 
 }

@@ -29,10 +29,12 @@
             <strong>Serviço:</strong> <span th:text="${evento.servico}" id="resumo-servico">Corte de cabelo</span>
           </li> -->
           <li class="list-group-item d-flex justify-content-between">
-            <strong>Data:</strong> <span th:text="${evento.inicio}" id="resumo-data">22/10/2025</span>
+            <strong>Data:</strong>
+            <span th:text="${#temporals.format(evento.inicio, 'dd/MM/yyyy')}" id="resumo-data"></span>
           </li>
           <li class="list-group-item d-flex justify-content-between">
-            <strong>Horário:</strong> <span th:text="${evento.inicio}" id="resumo-hora">15:00</span>
+            <strong>Horário:</strong>
+            <span th:text="${#temporals.format(evento.inicio, 'HH:mm')}" id="resumo-hora"></span>
           </li>
         </ul>
       </div>
@@ -41,9 +43,8 @@
         <form th:action="@{/evento/criar}" method="post" th:object="${evento}" style="display: block;">
           <button class="btn btn-success w-100 mb-2" id="confirmar-btn">Confirmar Agendamento</button>
           <input type="hidden" th:field="*{inicio}" />
-          <input type="hidden" th:field="*{dia}" />
-          <input type="hidden" th:field="*{mes}" />
-          <input type="hidden" th:field="*{ano}" />
+          <input type="hidden" th:field="*{atendente}" />
+          <input type="hidden" th:field="*{servico}" />
         </form>
         <a th:href="@{/criar-evento}" class="btn btn-outline-secondary w-100">Voltar e Editar</a>
       </div>

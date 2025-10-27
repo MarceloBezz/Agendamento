@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{Css/style.css}">
@@ -16,18 +19,26 @@
     </header>
     <main>
         <h2 class="inter">Barber Shop</h2>
-        <form th:action="@{/evento/confirmar}" method="post">
+        <form th:action="@{/evento/confirmar}" method="post" id="formCriarEvento">
             <div class="container mt-4 p-4 border rounded">
                 <h4>Agendar horário</h4>
                 <!-- <div class="mb-3">
                     <label for="data" class="form-label">Selecione o dia:</label>
                     <input type="date" th:field="*{data}" class="form-control teste1" id="data">
-                </div>
+                 </div>  -->
 
-                <div class="mb-3">
-                    <label for="hora" class="form-label">Selecione o horário:</label>
-                    <input type="time" th:field="*{horario}" class="form-control teste1" id="hora">
-                </div> -->
+                <!-- <div class="mb-3"> -->
+                <!-- <label for="hora" class="form-label">Selecione o horário:</label>
+                    <input type="text" name="inicio" class="form-control teste1" id="hora"> -->
+                <!-- </div>  -->
+                <div class="date-container">
+                    <button id="prevDate" type="button">⬅️</button>
+                    <div class="date-display" id="currentDate"></div>
+                    <button id="nextDate" type="button">➡️</button>
+                </div>
+                <input type="hidden" name="inicio" id="inicio">
+
+                <div class="time-buttons" id="timeList"></div>
                 <div class="container mt-4">
                     <h4 class="inter">Selecione o profissional</h4>
                     <select class="form-select mb-3" name="atendente">
@@ -48,6 +59,7 @@
         </form>
 
     </main>
+    <script th:src="@{/js/criar-evento.js}"></script>
 </body>
 
 </html>
