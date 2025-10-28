@@ -20,7 +20,7 @@
     <main>
         <h1 class="inter">Barber Shop</h2>
             <h2 class="inter">Olá <span th:text="${usuario.nome}"></span></h2>
-            <form th:action="@{/logout}" method="post">
+            <form class="logout" th:action="@{/logout}" method="post">
                 <button class="btn btn-danger" type="submit">Logout</button>
             </form>
             <div class="botoes">
