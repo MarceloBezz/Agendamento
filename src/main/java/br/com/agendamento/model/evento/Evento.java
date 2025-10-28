@@ -29,4 +29,6 @@ public class Evento {
     private Usuario usuarioId;
     private LocalDateTime inicio;
     private boolean ativo;
+    private String atendente;
+    private String servico;
 }

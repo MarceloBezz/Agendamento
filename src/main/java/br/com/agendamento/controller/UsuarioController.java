@@ -37,7 +37,7 @@ public class UsuarioController {
                     .setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
                             SecurityContextHolder.getContext());
 
-            return "redirect:/logado";
+            return "redirect:/meus-dados";
         } catch (Exception e) {
             return "redirect:/cadastro?erro";
         }

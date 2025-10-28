@@ -1,0 +1,3 @@
+ALTER TABLE eventos 
+ADD COLUMN servico VARCHAR(100) NOT NULL DEFAULT 'Indefinido',
+ADD COLUMN atendente VARCHAR(120) NOT NULL DEFAULT 'Não atribuído';

@@ -24,9 +24,8 @@
                 <button class="btn btn-danger" type="submit">Logout</button>
             </form>
             <div class="botoes">
-                <a th:href="@{/criar-evento}" id="agendamento" class="btn btn-primary btn-lg" tabindex="-1" role="button">Meus
-                    Agendamentos</a>
-                <a th:href="@{/meus-agendamentos}" class="btn btn-primary btn-lg" tabindex="-1" role="button">Agendar</a>
+                <a th:href="@{/criar-evento}" id="agendamento" class="btn btn-primary btn-lg" tabindex="-1" role="button">Agendar</a>
+                <a th:href="@{/meus-agendamentos}" class="btn btn-primary btn-lg" tabindex="-1" role="button">Meus Agendamentos</a>
             </div>
 
     <div sec:authorize="hasRole('ADMIN')"><a th:href="@{/admin}">Tela de Admin</a></div>
